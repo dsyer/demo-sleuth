@@ -1,0 +1,21 @@
+server:
+  port: 9090
+
+spring:
+  aop:
+    #proxy-target-class: true
+  application:
+      name: demo-sleuth
+  sleuth.log.json.enabled: false
+#  zipkin:
+#    host: localhost
+#    port: 9410
+
+logging:
+  pattern:
+    level: '%clr([trace=%X{X-Trace-Id:-},span=%X{X-Span-Id:-}]){yellow} %5p'
+
+hystrix:
+  command:
+    default.execution.timeout.enabled: false
+  plugin.HystrixConcurrencyStrategy.implementation: com.example.SpanPreservingConcurrencyStrategy

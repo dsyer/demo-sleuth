@@ -35,6 +35,8 @@ dependencies {
     compile('org.springframework.cloud:spring-cloud-starter-sleuth')
     compile('org.springframework.cloud:spring-cloud-starter-zipkin')
     compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework:spring-aspects')
+    compile "org.aspectj:aspectjrt"
     testCompile('org.springframework.boot:spring-boot-starter-test') 
 }
 

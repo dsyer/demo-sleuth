@@ -1,30 +1,31 @@
 package com.example;
 
+import java.util.concurrent.Executor;
+
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.aop.interceptor.SimpleAsyncUncaughtExceptionHandler;
-import org.springframework.context.annotation.AdviceMode;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import org.springframework.stereotype.Component;
 
-import java.util.concurrent.Executor;
-
-@Configuration
-@EnableAsync(mode = AdviceMode.ASPECTJ)
+@Component
+@EnableAsync
 public class DemoConfig implements AsyncConfigurer {
-	
-	@Override public Executor getAsyncExecutor() {
+
+	@Override
+	public Executor getAsyncExecutor() {
 		ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
 		taskExecutor.setCorePoolSize(5);
 		taskExecutor.setMaxPoolSize(10);
 		taskExecutor.setQueueCapacity(25);
-		taskExecutor.setThreadNamePrefix("ThreadPoolTaskExecutor-");
+		taskExecutor.setThreadNamePrefix("custom-");
 		taskExecutor.initialize();
 		return taskExecutor;
 	}
 
-	@Override public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
+	@Override
+	public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
 		return new SimpleAsyncUncaughtExceptionHandler();
 	}
 }

@@ -59,4 +59,18 @@ public class DemoController {
 		return demoService.callAsync().get();
 	}
 
+	@RequestMapping("/hi5")
+	public CompletableFuture<String> callSync() throws Exception {
+		log.info("hi5");
+		String result = demoService.callAsync().get();
+		return CompletableFuture.completedFuture(result);
+	}
+
+	@RequestMapping("/hi6")
+	public CompletableFuture<String> callFakeSync() throws Exception {
+		log.info("hi6");
+		String result = "hey dude";
+		return CompletableFuture.completedFuture(result);
+	}
+
 }
